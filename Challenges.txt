@@ -1,0 +1,6 @@
+Challenges: 
+	1.	I have a separate component for fetching the data from API using useEffect hook
+		I want to use this component in my app where ever I have to show the fetched data
+		how can achieve this?
+
+	2.	

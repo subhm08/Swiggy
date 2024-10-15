@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hide-scrollbar{
+    scrollbar-width: none; /* for Firefox */
+    -ms-overflow-style: none; /* for Internet Explorer and Edge */
+}
+.btn{
+    font-size: smaller;
+    font-weight: 500;
+    opacity: 0.8;
+    margin: 5px;
+    padding: 5px 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.218);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* overflow: hidden; */
+}
