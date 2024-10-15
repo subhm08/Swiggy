@@ -2,10 +2,13 @@
   "name": "swiggy-clone",
   "version": "1.0.0",
   "description": "this is a clone of famous food ordering app \"swiggy\"",
-  "main": "index.js",
+  
   "scripts": {
     "start": "parcel src/index.html",
-    "test": "jest"
+    "build": "parcel build src/index.html --public-url ./",
+    "test": "jest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -16,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/subhm08/Swiggy-App-Clone/issues"
   },
-  "homepage": "https://github.com/subhm08/Swiggy-App-Clone#readme",
+  "homepage": "https://subhm08.github.io/Swiggy/",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
@@ -37,7 +40,7 @@
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "events": "^3.3.0",
-    "gh-pages": "^6.1.1",
+    "gh-pages": "^6.2.0",
     "path-browserify": "^1.0.1",
     "postcss": "^8.4.47",
     "process": "^0.11.10",
