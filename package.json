@@ -2,7 +2,6 @@
   "name": "swiggy-clone",
   "version": "1.0.0",
   "description": "this is a clone of famous food ordering app \"swiggy\"",
-  
   "scripts": {
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html --public-url ./",

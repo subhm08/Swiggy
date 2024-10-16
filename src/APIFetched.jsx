@@ -1,6 +1,7 @@
 import react, { createContext, useEffect, useState } from "react";
 
 export const DataContext = createContext();
+export const LocationContext = createContext();
 
 export const DataProvider = ({ children }) =>{
     const [Apidata, setApiData] = useState(null);
@@ -37,7 +38,8 @@ export const DataProvider = ({ children }) =>{
     const [location, setLocation] = useState(null);
 
   const getLocationName = async () => {
-    const apiKey = "86d6ec3075a943629a3c39561ddc0bcf"; // Replace with your OpenCage API key
+    const apiKey = process.env.GET_LOCATION_API;
+     // Replace with your OpenCage API key
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
 
     try {
@@ -49,7 +51,7 @@ export const DataProvider = ({ children }) =>{
         console.log(location)
 
       } else {
-        setLocation("Location not found");
+        setLocation("Others...");
       }
     } catch (error) {
       console.error("Error fetching location:", error);
@@ -62,16 +64,22 @@ export const DataProvider = ({ children }) =>{
 
     
     useEffect(()=>{ 
-        fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=${latitude}&lng=${longitude}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`)
-        .then(response => response.json())
-        .then(fetchedData => setApiData(fetchedData));
+        fetchData()
      },[]);
+
+     const fetchData = async() =>{
+      const response = await fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.2642598&lng=77.412038&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`)
+      const data = await response.json()
+      setApiData(data)
+     }
 
 
     return (
         <DataContext.Provider value={Apidata}>
+            <LocationContext.Provider value={location}>
             {children}
             {console.log(location)}
+            </LocationContext.Provider>
         </DataContext.Provider>
     )
 }
