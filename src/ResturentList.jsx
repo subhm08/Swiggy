@@ -13,7 +13,6 @@ const Loading = () =>{
 }
 const ResturentList = () =>{
     const Data = useContext(DataContext);
-    console.log(Data);
     const resListData = Data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
     return !Data ? <Loading/> :(

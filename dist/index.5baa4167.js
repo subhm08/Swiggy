@@ -27295,7 +27295,6 @@ var _s = $RefreshSig$();
 const Navbar = ()=>{
     _s();
     const location = (0, _react.useContext)((0, _apifetched.LocationContext));
-    console.log(location);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: " flex gap-2 bg-white text-neutral-600 px-4 justify-evenly py-2 shadow-lg items-center font-medium text-sm sticky top-0 z-20 w-screen",
         children: [
@@ -27305,7 +27304,7 @@ const Navbar = ()=>{
                 alt: ""
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 9,
+                lineNumber: 8,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27316,20 +27315,20 @@ const Navbar = ()=>{
                         children: location
                     }, void 0, false, {
                         fileName: "src/Navbar.js",
-                        lineNumber: 10,
+                        lineNumber: 9,
                         columnNumber: 16
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
                         class: "bi bi-chevron-down text-orange-500 font-extrabold"
                     }, void 0, false, {
                         fileName: "src/Navbar.js",
-                        lineNumber: 10,
+                        lineNumber: 9,
                         columnNumber: 146
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/Navbar.js",
-                lineNumber: 10,
+                lineNumber: 9,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27337,7 +27336,7 @@ const Navbar = ()=>{
                 children: "Swiggy Corporate"
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 11,
+                lineNumber: 10,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27345,7 +27344,7 @@ const Navbar = ()=>{
                 children: "Search"
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 12,
+                lineNumber: 11,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27353,7 +27352,7 @@ const Navbar = ()=>{
                 children: "Offers"
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 13,
+                lineNumber: 12,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27361,7 +27360,7 @@ const Navbar = ()=>{
                 children: "Help"
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 14,
+                lineNumber: 13,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27369,7 +27368,7 @@ const Navbar = ()=>{
                 children: "Sign In"
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 15,
+                lineNumber: 14,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27377,13 +27376,13 @@ const Navbar = ()=>{
                 children: "Cart"
             }, void 0, false, {
                 fileName: "src/Navbar.js",
-                lineNumber: 16,
+                lineNumber: 15,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/Navbar.js",
-        lineNumber: 8,
+        lineNumber: 7,
         columnNumber: 9
     }, undefined);
 };
@@ -27581,39 +27580,52 @@ parcelHelpers.export(exports, "DataProvider", ()=>DataProvider);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _loadingShimmer = require("./LoadingShimmer");
+var _loadingShimmerDefault = parcelHelpers.interopDefault(_loadingShimmer);
 var _s = $RefreshSig$();
 const DataContext = /*#__PURE__*/ (0, _react.createContext)();
 const LocationContext = /*#__PURE__*/ (0, _react.createContext)();
 const DataProvider = ({ children })=>{
     _s();
     const [Apidata, setApiData] = (0, _react.useState)(null);
-    const [latitude, setLatitude] = (0, _react.useState)("");
-    const [longitude, setLongitude] = (0, _react.useState)("");
-    if (navigator.geolocation) navigator.geolocation.getCurrentPosition(showPosition, showError);
-    else alert("Geolocation is not supported by this browser.");
-    function showPosition(position) {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-    // Use these coordinates to display on a map or fetch nearby restaurants
-    }
-    function showError(error) {
-        switch(error.code){
-            case error.PERMISSION_DENIED:
-                alert("User denied the request for Geolocation.");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("Location information is unavailable.");
-                break;
-            case error.TIMEOUT:
-                alert("The request to get user location timed out.");
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("An unknown error occurred.");
-                break;
-        }
-    }
+    const [latitude, setLatitude] = (0, _react.useState)(null);
+    const [longitude, setLongitude] = (0, _react.useState)(null);
     const [location, setLocation] = (0, _react.useState)(null);
-    const getLocationName = async ()=>{
+    (0, _react.useEffect)(()=>{
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition((position)=>{
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+        }, (error)=>{
+            console.error(error);
+        });
+    }, []);
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(showPosition, showError);
+    // } else {
+    //     alert("Geolocation is not supported by this browser.");
+    // }
+    // function showPosition(position) {
+    //     setLatitude(position.coords.latitude);
+    //     setLongitude(position.coords.longitude);
+    //     // Use these coordinates to display on a map or fetch nearby restaurants
+    // }
+    // function showError(error) {
+    //     switch(error.code) {
+    //         case error.PERMISSION_DENIED:
+    //             alert("User denied the request for Geolocation.");
+    //             break;
+    //         case error.POSITION_UNAVAILABLE:
+    //             alert("Location information is unavailable.");
+    //             break;
+    //         case error.TIMEOUT:
+    //             alert("The request to get user location timed out.");
+    //             break;
+    //         case error.UNKNOWN_ERROR:
+    //             alert("An unknown error occurred.");
+    //             break;
+    //     }
+    // }
+    const getLocationName = async (lat, long)=>{
         const apiKey = "86d6ec3075a943629a3c39561ddc0bcf";
         // Replace with your OpenCage API key
         const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
@@ -27630,40 +27642,54 @@ const DataProvider = ({ children })=>{
             setLocation("Others");
         }
     };
+    // useEffect(()=>{ getLocationName()},[latitude,longitude]);
+    // useEffect(()=>{ 
+    //     fetchData()
+    //  },[]);
+    const fetchData = async (latitude, longitude)=>{
+        console.log("lognitute", longitude);
+        console.log("latitude", latitude);
+        const response = await fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=${latitude}&lng=${longitude}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`);
+        const data = await response.json();
+        setApiData(data);
+    };
     (0, _react.useEffect)(()=>{
-        getLocationName();
+        if (latitude && longitude) {
+            getLocationName(latitude, longitude);
+            fetchData(latitude, longitude);
+        }
     }, [
         latitude,
         longitude
     ]);
-    (0, _react.useEffect)(()=>{
-        fetchData();
-    }, []);
-    const fetchData = async ()=>{
-        const response = await fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.2642598&lng=77.412038&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`);
-        const data = await response.json();
-        setApiData(data);
-    };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(DataContext.Provider, {
-        value: Apidata,
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(LocationContext.Provider, {
-            value: location,
-            children: [
-                children,
-                console.log(location)
-            ]
-        }, void 0, true, {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: Apidata ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(DataContext.Provider, {
+            value: Apidata,
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(LocationContext.Provider, {
+                value: location,
+                children: [
+                    children,
+                    console.log(location)
+                ]
+            }, void 0, true, {
+                fileName: "src/APIFetched.jsx",
+                lineNumber: 110,
+                columnNumber: 13
+            }, undefined)
+        }, void 0, false, {
             fileName: "src/APIFetched.jsx",
-            lineNumber: 79,
-            columnNumber: 13
-        }, undefined)
-    }, void 0, false, {
-        fileName: "src/APIFetched.jsx",
-        lineNumber: 78,
-        columnNumber: 9
-    }, undefined);
+            lineNumber: 109,
+            columnNumber: 9
+        }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loadingShimmerDefault.default), {}, void 0, false, {
+                fileName: "src/APIFetched.jsx",
+                lineNumber: 117,
+                columnNumber: 10
+            }, undefined)
+        }, void 0, false)
+    }, void 0, false);
 };
-_s(DataProvider, "Dapg9oo60itOb3ll5iPWk62H5PM=");
+_s(DataProvider, "vzEdTbW23rqXSiVuu42rCl4tLkc=");
 _c = DataProvider;
 var _c;
 $RefreshReg$(_c, "DataProvider");
@@ -27673,11 +27699,11 @@ $RefreshReg$(_c, "DataProvider");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gsSAG":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$a317 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","./LoadingShimmer":"3opoG"}],"3opoG":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$a582 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$a317.prelude(module);
+$parcel$ReactRefreshHelpers$a582.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27685,119 +27711,62 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _apifetched = require("./APIFetched");
+var _navbar = require("./Navbar");
+var _navbarDefault = parcelHelpers.interopDefault(_navbar);
 var _reactShimmerEffects = require("react-shimmer-effects");
-var _s = $RefreshSig$();
-const Loading = ()=>{
+const LoadingShimmer = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "sm:mx-40 my-4",
+        className: "loading-shimmer",
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                className: " ml-4 text-black font-bold text-lg",
-                children: "what`s on your mind?"
-            }, void 0, false, {
-                fileName: "src/cuisineCards.jsx",
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navbarDefault.default), {}, void 0, false, {
+                fileName: "src/LoadingShimmer.jsx",
                 lineNumber: 8,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactShimmerEffects.ShimmerSimpleGallery), {
-                    imageType: "circular",
-                    imageHeight: 50,
-                    row: 1,
-                    col: 4,
-                    caption: true
+                className: "hero h-[calc(50vh)] w-full bg-gray-900 flex items-center justify-center",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                    className: " font-semibold text-2xl text-gray-50 opacity-85",
+                    children: "Looking for great food near you..."
                 }, void 0, false, {
-                    fileName: "src/cuisineCards.jsx",
-                    lineNumber: 9,
-                    columnNumber: 31
+                    fileName: "src/LoadingShimmer.jsx",
+                    lineNumber: 10,
+                    columnNumber: 17
                 }, undefined)
             }, void 0, false, {
-                fileName: "src/cuisineCards.jsx",
+                fileName: "src/LoadingShimmer.jsx",
                 lineNumber: 9,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactShimmerEffects.ShimmerSimpleGallery), {
+                card: true,
+                imageHeight: 150,
+                row: 4,
+                col: 4,
+                caption: true
+            }, void 0, false, {
+                fileName: "src/LoadingShimmer.jsx",
+                lineNumber: 12,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
-        fileName: "src/cuisineCards.jsx",
+        fileName: "src/LoadingShimmer.jsx",
         lineNumber: 7,
         columnNumber: 9
     }, undefined);
 };
-_c = Loading;
-const CuisineList = (props)=>{
-    const { id, description, imageId } = props;
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-            className: "h-36",
-            src: "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_180/" + imageId,
-            alt: description
-        }, void 0, false, {
-            fileName: "src/cuisineCards.jsx",
-            lineNumber: 18,
-            columnNumber: 9
-        }, undefined)
-    }, void 0, false);
-};
-_c1 = CuisineList;
-const Cuisine = ()=>{
-    _s();
-    const Data = (0, _react.useContext)((0, _apifetched.DataContext));
-    const cuisineListData = Data?.data?.cards[0]?.card?.card?.imageGridCards?.info;
-    return !Data ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Loading, {}, void 0, false, {
-        fileName: "src/cuisineCards.jsx",
-        lineNumber: 27,
-        columnNumber: 19
-    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: " sm:mx-40 my-4",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                className: " ml-4 text-black font-bold text-lg",
-                children: "what`s on your mind?"
-            }, void 0, false, {
-                fileName: "src/cuisineCards.jsx",
-                lineNumber: 29,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "hide-scrollbar flex flex-nowrap overflow-y-hidden",
-                children: // console.log(dataList)
-                cuisineListData.map((data)=>{
-                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(CuisineList, {
-                        ...data
-                    }, void 0, false, {
-                        fileName: "src/cuisineCards.jsx",
-                        lineNumber: 34,
-                        columnNumber: 53
-                    }, undefined);
-                })
-            }, void 0, false, {
-                fileName: "src/cuisineCards.jsx",
-                lineNumber: 30,
-                columnNumber: 13
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/cuisineCards.jsx",
-        lineNumber: 28,
-        columnNumber: 9
-    }, undefined);
-};
-_s(Cuisine, "xgugLG1G+aixqPRR/m7ZslpT1cU=");
-_c2 = Cuisine;
-exports.default = Cuisine;
-var _c, _c1, _c2;
-$RefreshReg$(_c, "Loading");
-$RefreshReg$(_c1, "CuisineList");
-$RefreshReg$(_c2, "Cuisine");
+_c = LoadingShimmer;
+exports.default = LoadingShimmer;
+var _c;
+$RefreshReg$(_c, "LoadingShimmer");
 
-  $parcel$ReactRefreshHelpers$a317.postlude(module);
+  $parcel$ReactRefreshHelpers$a582.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./APIFetched":"5rliq","react-shimmer-effects":"5ORgO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"5ORgO":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Navbar":"c90cJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-shimmer-effects":"5ORgO"}],"5ORgO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ShimmerButton", ()=>ShimmerButton);
@@ -29494,7 +29463,131 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"24ba1e58d167a82c":"jZTZJ","898bc82f39d83f7c":"fqKuf"}],"7PgQe":[function(require,module,exports) {
+},{"24ba1e58d167a82c":"jZTZJ","898bc82f39d83f7c":"fqKuf"}],"gsSAG":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$a317 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$a317.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _apifetched = require("./APIFetched");
+var _reactShimmerEffects = require("react-shimmer-effects");
+var _s = $RefreshSig$();
+const Loading = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "sm:mx-40 my-4",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                className: " ml-4 text-black font-bold text-lg",
+                children: "what`s on your mind?"
+            }, void 0, false, {
+                fileName: "src/cuisineCards.jsx",
+                lineNumber: 8,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactShimmerEffects.ShimmerSimpleGallery), {
+                    imageType: "circular",
+                    imageHeight: 50,
+                    row: 1,
+                    col: 4,
+                    caption: true
+                }, void 0, false, {
+                    fileName: "src/cuisineCards.jsx",
+                    lineNumber: 9,
+                    columnNumber: 31
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/cuisineCards.jsx",
+                lineNumber: 9,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/cuisineCards.jsx",
+        lineNumber: 7,
+        columnNumber: 9
+    }, undefined);
+};
+_c = Loading;
+const CuisineList = (props)=>{
+    const { id, description, imageId } = props;
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+            className: "h-36",
+            src: "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_180/" + imageId,
+            alt: description
+        }, void 0, false, {
+            fileName: "src/cuisineCards.jsx",
+            lineNumber: 18,
+            columnNumber: 9
+        }, undefined)
+    }, void 0, false);
+};
+_c1 = CuisineList;
+const Cuisine = ()=>{
+    _s();
+    const Data = (0, _react.useContext)((0, _apifetched.DataContext));
+    const cuisineListData = Data?.data?.cards[0]?.card?.card?.imageGridCards?.info;
+    return !Data ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Loading, {}, void 0, false, {
+        fileName: "src/cuisineCards.jsx",
+        lineNumber: 27,
+        columnNumber: 19
+    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: " sm:mx-40 my-4",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                className: " ml-4 text-black font-bold text-lg",
+                children: "what`s on your mind?"
+            }, void 0, false, {
+                fileName: "src/cuisineCards.jsx",
+                lineNumber: 29,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "hide-scrollbar flex flex-nowrap overflow-y-hidden",
+                children: // console.log(dataList)
+                cuisineListData.map((data)=>{
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(CuisineList, {
+                        ...data
+                    }, void 0, false, {
+                        fileName: "src/cuisineCards.jsx",
+                        lineNumber: 34,
+                        columnNumber: 53
+                    }, undefined);
+                })
+            }, void 0, false, {
+                fileName: "src/cuisineCards.jsx",
+                lineNumber: 30,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/cuisineCards.jsx",
+        lineNumber: 28,
+        columnNumber: 9
+    }, undefined);
+};
+_s(Cuisine, "xgugLG1G+aixqPRR/m7ZslpT1cU=");
+_c2 = Cuisine;
+exports.default = Cuisine;
+var _c, _c1, _c2;
+$RefreshReg$(_c, "Loading");
+$RefreshReg$(_c1, "CuisineList");
+$RefreshReg$(_c2, "Cuisine");
+
+  $parcel$ReactRefreshHelpers$a317.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./APIFetched":"5rliq","react-shimmer-effects":"5ORgO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"7PgQe":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$c579 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -29740,11 +29833,10 @@ _c = Loading;
 const ResturentList = ()=>{
     _s();
     const Data = (0, _react.useContext)((0, _apifetched.DataContext));
-    console.log(Data);
     const resListData = Data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     return !Data ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Loading, {}, void 0, false, {
         fileName: "src/ResturentList.jsx",
-        lineNumber: 19,
+        lineNumber: 18,
         columnNumber: 20
     }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: " sm:mx-40 my-4",
@@ -29754,7 +29846,7 @@ const ResturentList = ()=>{
                 children: "Top resturent chain in your area"
             }, void 0, false, {
                 fileName: "src/ResturentList.jsx",
-                lineNumber: 21,
+                lineNumber: 20,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -29765,19 +29857,19 @@ const ResturentList = ()=>{
                         ...list.info
                     }, void 0, false, {
                         fileName: "src/ResturentList.jsx",
-                        lineNumber: 25,
+                        lineNumber: 24,
                         columnNumber: 24
                     }, undefined);
                 })
             }, void 0, false, {
                 fileName: "src/ResturentList.jsx",
-                lineNumber: 22,
+                lineNumber: 21,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/ResturentList.jsx",
-        lineNumber: 20,
+        lineNumber: 19,
         columnNumber: 9
     }, undefined);
 };
@@ -29803,86 +29895,58 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const filterbtns = [
+    {
+        name: "Filter",
+        value: "all"
+    },
+    {
+        name: "Sort By",
+        value: "active"
+    },
+    {
+        name: "Fast Delivery",
+        value: "all"
+    },
+    {
+        name: "New on Swiggy",
+        value: "all"
+    },
+    {
+        name: "Rating 4.0+",
+        value: "all"
+    },
+    {
+        name: "Pure Veg",
+        value: "all"
+    },
+    {
+        name: "Offers",
+        value: "all"
+    },
+    {
+        name: "Rs. 300-Rs. 600",
+        value: "all"
+    },
+    {
+        name: "Less the Rs. 300",
+        value: "all"
+    }
+];
 const FilterBar = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "filter-bar hide-scrollbar flex flex-nowrap overflow-y-hidden  gap-2 bg-white text-neutral-600 px-4 justify-evenly py-2 items-center font-medium text-sm z-20 w-screen sticky top-0",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+        children: filterbtns.map((btn)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 className: "btn",
-                children: "Filter"
+                children: btn.name
             }, void 0, false, {
                 fileName: "src/FilterBar.jsx",
-                lineNumber: 4,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Sort By"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 5,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Fast Delivery"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 6,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "New on Swiggy"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 7,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Rating 4.0+"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 8,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Pure Veg"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 9,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Offers"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 10,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Rs. 300-Rs. 600"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 11,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "btn",
-                children: "Less the Rs. 300"
-            }, void 0, false, {
-                fileName: "src/FilterBar.jsx",
-                lineNumber: 12,
-                columnNumber: 13
-            }, undefined)
-        ]
-    }, void 0, true, {
+                lineNumber: 19,
+                columnNumber: 21
+            }, undefined))
+    }, void 0, false, {
         fileName: "src/FilterBar.jsx",
-        lineNumber: 3,
+        lineNumber: 16,
         columnNumber: 9
     }, undefined);
 };
