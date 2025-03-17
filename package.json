@@ -1,7 +1,7 @@
 {
   "name": "swiggy-clone",
   "version": "1.0.0",
-  "description": "this is a clone of famous food ordering app \"swiggy\"",
+  "description": "this is a clone of famous food ordering app swiggy",
   "scripts": {
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html --public-url ./",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/subhm08/Swiggy-App-Clone/issues"
   },
-  "homepage": "https://subhm08.github.io/Swiggy/",
+  "homepage": "http://.",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "axios": "^1.7.7",
@@ -53,5 +53,7 @@
     "url": "^0.11.4",
     "util": "^0.12.5",
     "vm-browserify": "^1.1.2"
-  }
+  },
+  "main": "app.js",
+  "keywords": []
 }

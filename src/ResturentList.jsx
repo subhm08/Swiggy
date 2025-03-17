@@ -21,7 +21,7 @@ const ResturentList = () =>{
             <div className=" grid grid-cols-4 gap-4">
         {
             resListData.map((list)=>{
-                return <ResturentCard width="w-auto" {...list.info}/>
+                return <ResturentCard width="w-auto"  {...list.info} key={list.info.id}/>
             })
         }
        </div> 

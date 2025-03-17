@@ -1,8 +1,9 @@
-import react from "react";
+import react, { useEffect } from "react";
 
 const ResturentCard = (props) =>{
     const {id, name , cloudinaryImageId, locality, areaName , cuisines, avgRating,  costForTwo, aggregatedDiscountInfoV3, sla, width, innerWidth } = props;
 
+   
     return(
     <div className={`res-card flex flex-col h-60 p-2 m-1 hover:scale-95 transition-all ${width}`}>
         <img className="rounded-2xl h-1/2 w-48" src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"+cloudinaryImageId} alt={name}/>
