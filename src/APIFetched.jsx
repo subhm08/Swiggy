@@ -54,7 +54,7 @@ export const DataProvider = ({ children }) =>{
     console.log("Latitude:", latitude);
 
     try {
-        const response = await fetch(`http://localhost:5000/api/swiggy?lat=${latitude}&lng=${longitude}`);
+        const response = await fetch(`https://swiggy-backend-rho.vercel.app?lat=${latitude}&lng=${longitude}`);
         const data = await response.json();
         setApiData(data);
     } catch (error) {
